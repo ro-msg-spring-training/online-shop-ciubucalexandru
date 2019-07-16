@@ -1,45 +1,45 @@
 CREATE TABLE product_category(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE supplier(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE address(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     country VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
     county VARCHAR(100) NOT NULL,
     street VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE location(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR (100) NOT NULL,
+    address_id INT NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(id)
+);
+
 CREATE TABLE product(
-    id INT,
+    id INT AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255) NOT NULL,
     price DECIMAL NOT NULL,
     weight DOUBLE NOT NULL,
     category_id INT,
     supplier_id INT,
-    imageUrl VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(category_id) REFERENCES product_category(id),
     FOREIGN KEY(supplier_id) REFERENCES supplier(id)
 );
 
-CREATE TABLE location(
-    id INT PRIMARY KEY,
-    name VARCHAR (100) NOT NULL,
-    address_id INT NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES address(id)
-);
-
 CREATE TABLE customer(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE customer(
 );
 
 CREATE TABLE orders(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     shipped_from INT,
     customer_id INT,
     created_at TIMESTAMP,
@@ -68,7 +68,7 @@ CREATE TABLE stock(
 );
 
 CREATE TABLE revenue(
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     location_id INT,
     date DATE NOT NULL,
     sum DECIMAL NOT NULL,

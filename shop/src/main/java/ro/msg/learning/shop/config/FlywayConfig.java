@@ -8,6 +8,6 @@ public class FlywayConfig {
     @Bean(initMethod = "migrate")
     public Flyway flyway() {
 
-        return Flyway.configure().dataSource("jdbc:h2:file:~/shop", "sa", "smth").load();
+        return Flyway.configure().dataSource("jdbc:h2:mem:shop", "sa", "smth").load();
     }
 }
