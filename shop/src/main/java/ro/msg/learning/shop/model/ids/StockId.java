@@ -9,7 +9,9 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class StockId implements Serializable {
 
     @Column(name = "product_id")

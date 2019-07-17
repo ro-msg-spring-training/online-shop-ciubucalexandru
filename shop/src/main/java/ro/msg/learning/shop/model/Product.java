@@ -13,11 +13,19 @@ public class Product implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "weight")
     private Double weight;
 
     @ManyToOne

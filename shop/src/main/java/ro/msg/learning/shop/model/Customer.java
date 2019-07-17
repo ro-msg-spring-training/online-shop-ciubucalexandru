@@ -3,10 +3,7 @@ package ro.msg.learning.shop.model;
 import lombok.Data;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "customer")
@@ -14,6 +11,8 @@ import javax.persistence.Table;
 public class Customer implements BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "first_name")
@@ -22,7 +21,10 @@ public class Customer implements BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
 
     @Column(name = "email_address")

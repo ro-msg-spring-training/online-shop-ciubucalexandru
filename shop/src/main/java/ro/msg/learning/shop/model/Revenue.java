@@ -14,13 +14,16 @@ public class Revenue implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "sum")
     private BigDecimal sum;
 }

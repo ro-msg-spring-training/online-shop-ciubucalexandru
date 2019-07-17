@@ -13,6 +13,7 @@ public class Order implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne

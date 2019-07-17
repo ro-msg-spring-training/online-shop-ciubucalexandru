@@ -13,19 +13,20 @@ public class OrderDetail {
     @EmbeddedId
     private OrderDetailId id;
 
+    @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "order_id",
-        insertable = false,
-        updatable = false
+            insertable = false,
+            updatable = false
     )
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id",
-        insertable = false,
-        updatable = false
+            insertable = false,
+            updatable = false
     )
     private Product product;
 }
