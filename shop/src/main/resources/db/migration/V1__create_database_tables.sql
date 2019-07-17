@@ -1,0 +1,1 @@
+create table testTable(id int primary key auto_increment, name varchar)
