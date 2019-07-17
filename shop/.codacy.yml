@@ -2,19 +2,27 @@ engines:
  rubocop:
    enabled: true
    exclude_paths:
-     - config/engines.yml
+     - '**.sql'
+     - 'src/test/**'
+     - '.mvn/**'
  duplication:
    enabled: true
    exclude_paths:
-     - config/engines.yml
+     - '**.sql'
+     - 'src/test/**'
+     - '.mvn/**'
  metric:
    enabled: true
    exclude_paths:
-     - config/engines.yml
+     - '**.sql'
+     - 'src/test/**'
+     - '.mvn/**'
  coverage:
    enabled: true
    exclude_paths:
-     - config/engines.yml
+     - '**.sql'
+     - 'src/test/**'
+     - '.mvn/**'
 languages:
   css:
     extensions:
