@@ -13,10 +13,10 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    StockRepository stockRepository;
+    private StockRepository stockRepository;
 
     @RequestMapping("/addresses")
     public String getAddresses() {
