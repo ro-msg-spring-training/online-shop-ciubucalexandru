@@ -4,20 +4,18 @@ import lombok.Data;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "product_category")
 @Data
-public class ProductCategory implements BaseEntity {
+public class ProductCategory implements BaseEntity, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
     private String description;
 }

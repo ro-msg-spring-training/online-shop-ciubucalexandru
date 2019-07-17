@@ -4,16 +4,15 @@ import lombok.Data;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "orders")
 @Data
-public class Order implements BaseEntity {
+public class Order implements BaseEntity, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
 
     @ManyToOne

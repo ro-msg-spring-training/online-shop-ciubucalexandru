@@ -4,16 +4,16 @@ import lombok.Data;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "order_detail")
 @Data
-public class OrderDetail {
+public class OrderDetail implements Serializable {
 
     @EmbeddedId
     private OrderDetailId id;
 
-    @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne

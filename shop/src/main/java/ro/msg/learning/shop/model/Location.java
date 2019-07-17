@@ -4,17 +4,16 @@ import lombok.Data;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity(name = "location")
+@Entity
 @Data
-public class Location implements BaseEntity {
+public class Location implements BaseEntity, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
     private String name;
 
     @OneToOne
