@@ -45,7 +45,9 @@ public class ProductService {
 
     public ProductDTO updateProduct(ProductDTO productDTO) {
         if (productRepository.getOne(productDTO.getProductId()) != null) {
-            Product product = productRepository.getOne(productDTO.getProductId());
+            Product product = generateProduct(productDTO);
+            product.setId(productDTO.getProductId());
+
             return generateProductDTO(productRepository.save(product));
         } else {
             return null;

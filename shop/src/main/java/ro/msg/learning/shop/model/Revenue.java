@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Revenue implements BaseEntity, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
