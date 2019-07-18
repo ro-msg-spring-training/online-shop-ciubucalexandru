@@ -16,12 +16,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping(value = "/all", headers = "Accept=application/json")
+    @GetMapping(value = "/all")
     public List<ProductDTO> allProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping(value = "/{id}", headers = "Accept=application/json")
+    @GetMapping(value = "/{id}")
     public ProductDTO getProductById(@PathVariable("id") Integer id) {
         return productService.getProductById(id);
     }

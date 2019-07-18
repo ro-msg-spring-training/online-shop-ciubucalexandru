@@ -1,17 +1,18 @@
 package ro.msg.learning.shop.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import ro.msg.learning.shop.model.Product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductDTO implements Serializable {
 
     private Integer productId;
@@ -25,4 +26,20 @@ public class ProductDTO implements Serializable {
     private String categoryDescription;
     private Integer supplierId;
     private String supplierName;
+
+    public static ProductDTO toDTO(Product product) {
+        return ProductDTO.builder()
+                .productId(product.getId())
+                .productName(product.getName())
+                .productDescription(product.getDescription())
+                .price(product.getPrice())
+                .weight(product.getWeight())
+                .imageUrl(product.getImageUrl())
+                .categoryId(product.getProductCategory().getId())
+                .categoryName(product.getProductCategory().getName())
+                .categoryDescription(product.getProductCategory().getDescription())
+                .supplierId(product.getSupplier().getId())
+                .supplierName(product.getSupplier().getName())
+                .build();
+    }
 }

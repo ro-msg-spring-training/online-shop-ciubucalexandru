@@ -1,6 +1,9 @@
 package ro.msg.learning.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.model.ids.StockId;
 
 import javax.persistence.*;
@@ -8,6 +11,9 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Stock implements Serializable {
 
     @EmbeddedId

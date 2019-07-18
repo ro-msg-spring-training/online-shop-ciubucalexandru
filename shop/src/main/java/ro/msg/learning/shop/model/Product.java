@@ -1,7 +1,10 @@
 package ro.msg.learning.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product implements BaseEntity, Serializable {
 
     @Id

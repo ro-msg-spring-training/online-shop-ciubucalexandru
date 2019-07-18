@@ -5,6 +5,7 @@ import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,4 +20,7 @@ public class Location implements BaseEntity, Serializable {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToMany(mappedBy = "location")
+    private List<Stock> stocks;
 }
