@@ -8,6 +8,8 @@ import ro.msg.learning.shop.dto.OrderCreationDTO;
 import ro.msg.learning.shop.dto.OrderDTO;
 import ro.msg.learning.shop.service.OrderService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -19,7 +21,7 @@ public class OrderController {
     }
 
     @PostMapping("/")
-    public OrderDTO createOrder(@RequestBody OrderCreationDTO orderCreationDTO) {
+    public List<OrderDTO> createOrder(@RequestBody OrderCreationDTO orderCreationDTO) {
         return orderService.createOrder(orderCreationDTO);
     }
 }
