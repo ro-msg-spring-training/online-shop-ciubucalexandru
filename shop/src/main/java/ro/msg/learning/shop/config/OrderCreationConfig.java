@@ -17,8 +17,8 @@ public class OrderCreationConfig {
 
     @Bean
     public CreateOrderStrategy createOrderStrategy(SingleLocationStrategy singleLocationStrategy, MostAbundantStrategy mostAbundantStrategy) {
-        if (orderCreationStrategy.equals("single_location")) return singleLocationStrategy;
-        else if (orderCreationStrategy.equals("most_abundant")) return mostAbundantStrategy;
+        if ("single_location".equals(orderCreationStrategy)) return singleLocationStrategy;
+        else if ("most_abundant".equals(orderCreationStrategy)) return mostAbundantStrategy;
         else return null;
     }
 }
