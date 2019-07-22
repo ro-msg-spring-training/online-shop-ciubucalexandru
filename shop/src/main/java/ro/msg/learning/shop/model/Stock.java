@@ -1,19 +1,24 @@
 package ro.msg.learning.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.model.ids.StockId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "stock")
 @Data
-public class Stock {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Stock implements Serializable {
 
     @EmbeddedId
     private StockId id;
 
-    @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne

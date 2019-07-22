@@ -3,30 +3,25 @@ package ro.msg.learning.shop.model;
 import lombok.Data;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "address")
 @Data
-public class Address implements BaseEntity {
+public class Address implements BaseEntity, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "country")
     private String country;
 
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "county")
     private String county;
 
-    @Column(name = "street")
     private String street;
-
-    @OneToOne(mappedBy = "address")
-    private Location location;
 }
