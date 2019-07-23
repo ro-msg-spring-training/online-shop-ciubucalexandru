@@ -17,7 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class SingleLocationTest extends StrategyTest {
+public class SingleLocationTests extends StrategyTests {
 
     @InjectMocks
     private SingleLocationStrategy singleLocationStrategy;

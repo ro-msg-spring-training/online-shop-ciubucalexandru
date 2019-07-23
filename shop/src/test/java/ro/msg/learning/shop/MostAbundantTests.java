@@ -17,7 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class MostAbundantTest extends StrategyTest{
+public class MostAbundantTests extends StrategyTests {
 
     @InjectMocks
     private MostAbundantStrategy mostAbundantStrategy;

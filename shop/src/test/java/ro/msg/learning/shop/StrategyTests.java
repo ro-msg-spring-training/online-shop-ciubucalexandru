@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class StrategyTest {
+public class StrategyTests {
 
     @Mock
     private LocationRepository locationRepository;
