@@ -1,57 +1,44 @@
 package ro.msg.learning.shop;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import ro.msg.learning.shop.dto.OrderCreationDTO;
-import ro.msg.learning.shop.dto.ProductQuantityDTO;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
 import ro.msg.learning.shop.repository.*;
-import ro.msg.learning.shop.strategy.SingleLocationStrategy;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ShopApplicationTests {
+@RunWith(MockitoJUnitRunner.Silent.class)
+public class StrategyTest {
 
-    @MockBean
+    @Mock
     private LocationRepository locationRepository;
 
-    @MockBean
+    @Mock
     private StockRepository stockRepository;
 
-    @MockBean
+    @Mock
     private ProductRepository productRepository;
 
-    @MockBean
+    @Mock
     private OrderRepository orderRepository;
 
-    @MockBean
+    @Mock
     private OrderDetailRepository orderDetailRepository;
 
-    @MockBean
+    @Mock
     private CustomerRepository customerRepository;
 
-    @MockBean
+    @Mock
     private AddressRepository addressRepository;
-
-    @Autowired
-    @InjectMocks
-    private SingleLocationStrategy singleLocationStrategy;
 
     @Before
     public void beforeTests() {
@@ -105,14 +92,22 @@ public class ShopApplicationTests {
                 .imageUrl("some image")
                 .build();
 
-        Stock stock1 = Stock.builder().id(new StockId(1, 1)).quantity(50).product(product1).location(location1).build();
-        Stock stock3 = Stock.builder().id(new StockId(2, 1)).quantity(15).product(product2).location(location1).build();
+        StockId stockId1 = new StockId(1, 1);
+        StockId stockId2 = new StockId(1, 2);
+        StockId stockId3 = new StockId(2, 1);
+        StockId stockId4 = new StockId(2, 2);
+        StockId stockId5 = new StockId(2, 3);
+        StockId stockId6 = new StockId(3, 3);
 
-        Stock stock2 = Stock.builder().id(new StockId(1, 2)).quantity(200).product(product1).location(location2).build();
-        Stock stock4 = Stock.builder().id(new StockId(2, 2)).quantity(50).product(product2).location(location2).build();
 
-        Stock stock5 = Stock.builder().id(new StockId(2, 3)).quantity(75).product(product2).location(location3).build();
-        Stock stock6 = Stock.builder().id(new StockId(3, 3)).quantity(150).product(product3).location(location3).build();
+        Stock stock1 = Stock.builder().id(stockId1).quantity(50).product(product1).location(location1).build();
+        Stock stock3 = Stock.builder().id(stockId3).quantity(15).product(product2).location(location1).build();
+
+        Stock stock2 = Stock.builder().id(stockId2).quantity(200).product(product1).location(location2).build();
+        Stock stock4 = Stock.builder().id(stockId4).quantity(50).product(product2).location(location2).build();
+
+        Stock stock5 = Stock.builder().id(stockId5).quantity(75).product(product2).location(location3).build();
+        Stock stock6 = Stock.builder().id(stockId6).quantity(150).product(product3).location(location3).build();
 
         Customer customer = Customer.builder()
                 .id(1)
@@ -123,12 +118,28 @@ public class ShopApplicationTests {
                 .password("pass")
                 .build();
 
-        Order orderNull = Order.builder()
+        Order orderNull1 = Order.builder()
                 .id(null)
                 .address(address4)
                 .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
                 .customer(customer)
                 .location(location2)
+                .build();
+
+        Order orderNull2 = Order.builder()
+                .id(null)
+                .address(address4)
+                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
+                .customer(customer)
+                .location(location1)
+                .build();
+
+        Order orderNull3 = Order.builder()
+                .id(null)
+                .address(address4)
+                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
+                .customer(customer)
+                .location(location3)
                 .build();
 
         Order order1 = Order.builder()
@@ -139,8 +150,21 @@ public class ShopApplicationTests {
                 .location(location2)
                 .build();
 
-        OrderDetail orderDetail1 = OrderDetail.builder().id(new OrderDetailId(1, 1)).quantity(40).order(order1).product(product1).build();
-        OrderDetail orderDetail2 = OrderDetail.builder().id(new OrderDetailId(1, 2)).quantity(60).order(order1).product(product2).build();
+        Order order2 = Order.builder()
+                .id(2)
+                .address(address4)
+                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
+                .customer(customer)
+                .location(location1)
+                .build();
+
+        Order order3 = Order.builder()
+                .id(3)
+                .address(address4)
+                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
+                .customer(customer)
+                .location(location3)
+                .build();
 
         when(locationRepository.findAll()).thenReturn(Arrays.asList(location1, location2, location3));
 
@@ -159,27 +183,10 @@ public class ShopApplicationTests {
 
         when(customerRepository.getOne(1)).thenReturn(customer);
 
-        when(orderRepository.save(orderNull)).thenReturn(order1);
-    }
+        when(orderRepository.save(orderNull1)).thenReturn(order1);
+        when(orderRepository.save(orderNull2)).thenReturn(order2);
+        when(orderRepository.save(orderNull3)).thenReturn(order3);
 
-    @Test
-    public void singleLocationTest() {
-
-        List<ProductQuantityDTO> products = Arrays.asList(
-                new ProductQuantityDTO(1, 40),
-                new ProductQuantityDTO(2, 60)
-        );
-
-        OrderCreationDTO orderCreationDTO = OrderCreationDTO.builder()
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .addressId(4)
-                .products(products)
-                .build();
-
-        List<Order> ordersReturned = singleLocationStrategy.createOrder(orderCreationDTO);
-
-        assertThat(ordersReturned.size()).isEqualTo(1);
-        assertThat(ordersReturned.get(0).getCreatedAt()).isEqualTo("2018-07-07 10:19:00");
-        assertThat(ordersReturned.get(0).getLocation().getId()).isEqualTo(2);
+        when(stockRepository.getOne(any())).thenReturn(stock1);
     }
 }
