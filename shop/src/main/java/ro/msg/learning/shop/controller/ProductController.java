@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.dto.ProductDTO;
 import ro.msg.learning.shop.service.ProductService;
@@ -26,11 +27,13 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @Transactional
     @PostMapping("/")
     public ProductDTO createProduct(@RequestBody ProductDTO product) {
         return productService.createProduct(product);
     }
 
+    @Transactional
     @DeleteMapping("/")
     public void deleteProduct(@RequestBody ProductDTO product) {
         productService.deleteProduct(product);
@@ -41,6 +44,7 @@ public class ProductController {
         productService.deleteProductById(id);
     }
 
+    @Transactional
     @PutMapping("/")
     public ProductDTO updateProduct(@RequestBody ProductDTO product) {
         return productService.updateProduct(product);

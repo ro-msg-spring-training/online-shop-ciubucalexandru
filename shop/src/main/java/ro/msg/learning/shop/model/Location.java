@@ -1,13 +1,18 @@
 package ro.msg.learning.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Location implements BaseEntity, Serializable {
 
@@ -20,7 +25,4 @@ public class Location implements BaseEntity, Serializable {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
-    @OneToMany(mappedBy = "location")
-    private List<Stock> stocks;
 }
