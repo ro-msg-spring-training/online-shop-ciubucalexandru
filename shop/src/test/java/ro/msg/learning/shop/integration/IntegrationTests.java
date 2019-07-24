@@ -1,35 +1,29 @@
 package ro.msg.learning.shop.integration;
 
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.repository.*;
 import ro.msg.learning.shop.strategy.MostAbundantStrategy;
 import ro.msg.learning.shop.strategy.SingleLocationStrategy;
 
 public class IntegrationTests {
 
-    @Autowired
+    protected @Autowired
     LocationRepository locationRepository;
 
-    @Autowired
+    protected @Autowired
     StockRepository stockRepository;
 
-    @Autowired
+    protected @Autowired
     ProductRepository productRepository;
 
-    @Autowired
+    protected @Autowired
     OrderRepository orderRepository;
 
-    @Autowired
+    protected @Autowired
     OrderDetailRepository orderDetailRepository;
 
-    @Autowired
+    protected @Autowired
     CustomerRepository customerRepository;
 
     protected @Autowired
