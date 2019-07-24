@@ -28,6 +28,7 @@ public class MostAbundantIntegrationTests extends IntegrationTests {
 
     @Test
     public void mostAbundantCreateSuccess() {
+
         List<ProductQuantityDTO> products = Arrays.asList(
                 new ProductQuantityDTO(1, 40),
                 new ProductQuantityDTO(2, 10)
@@ -60,6 +61,7 @@ public class MostAbundantIntegrationTests extends IntegrationTests {
 
     @Test(expected = CouldNotFindLocationException.class)
     public void mostAbundantCreateFail() {
+
         List<ProductQuantityDTO> products = Arrays.asList(
                 new ProductQuantityDTO(1, 40),
                 new ProductQuantityDTO(2, 500)
