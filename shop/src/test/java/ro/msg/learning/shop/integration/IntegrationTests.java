@@ -23,8 +23,8 @@ public class IntegrationTests {
     @Autowired
     AddressRepository addressRepository;
 
-    SingleLocationStrategy singleLocationStrategy;
-    MostAbundantStrategy mostAbundantStrategy;
+    protected SingleLocationStrategy singleLocationStrategy;
+    protected MostAbundantStrategy mostAbundantStrategy;
 
     @Before
     public void initialize() {

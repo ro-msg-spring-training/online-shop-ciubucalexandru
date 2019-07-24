@@ -28,9 +28,6 @@ public class StrategyTests {
     private OrderRepository orderRepository;
 
     @Mock
-    private OrderDetailRepository orderDetailRepository;
-
-    @Mock
     private CustomerRepository customerRepository;
 
     @Mock
@@ -38,8 +35,6 @@ public class StrategyTests {
 
     @Before
     public void beforeTests() {
-
-        //singleLocationStrategy = new SingleLocationStrategy(locationRepository, stockRepository, productRepository, orderRepository, orderDetailRepository, customerRepository, addressRepository);
 
         Address address1 = Address.builder().id(1).country("Romania").city("Cluj Napoca").street("Brassai").county("Cluj").build();
         Address address2 = Address.builder().id(2).country("Romania").city("Campia Turzii").street("Teilor").county("Cluj").build();
@@ -55,38 +50,9 @@ public class StrategyTests {
 
         Supplier supplier = Supplier.builder().id(1).name("EMAG").build();
 
-        Product product1 = Product.builder()
-                .id(1)
-                .name("iPhone 6s")
-                .description("THE iPhone 6S")
-                .price(new BigDecimal(1600.50))
-                .weight(0.5)
-                .productCategory(productCategory1)
-                .supplier(supplier)
-                .imageUrl("some image")
-                .build();
-
-        Product product2 = Product.builder()
-                .id(2)
-                .name("Basketball")
-                .description("A basketball")
-                .price(new BigDecimal(100.0))
-                .weight(0.7)
-                .productCategory(productCategory2)
-                .supplier(supplier)
-                .imageUrl("some image")
-                .build();
-
-        Product product3 = Product.builder()
-                .id(3)
-                .name("USB Cable")
-                .description("Male to male USB Cable")
-                .price(new BigDecimal(7.0))
-                .weight(0.1)
-                .productCategory(productCategory1)
-                .supplier(supplier)
-                .imageUrl("some image")
-                .build();
+        Product product1 = Product.builder().id(1).name("iPhone 6s").description("THE iPhone 6S").price(new BigDecimal("1600.50")).weight(0.5).productCategory(productCategory1).supplier(supplier).imageUrl("some image").build();
+        Product product2 = Product.builder().id(2).name("Basketball").description("A basketball").price(new BigDecimal("100.0")).weight(0.7).productCategory(productCategory2).supplier(supplier).imageUrl("some image").build();
+        Product product3 = Product.builder().id(3).name("USB Cable").description("Male to male USB Cable").price(new BigDecimal("7.0")).weight(0.1).productCategory(productCategory1).supplier(supplier).imageUrl("some image").build();
 
         StockId stockId1 = new StockId(1, 1);
         StockId stockId2 = new StockId(1, 2);
@@ -95,72 +61,22 @@ public class StrategyTests {
         StockId stockId5 = new StockId(2, 3);
         StockId stockId6 = new StockId(3, 3);
 
-
         Stock stock1 = Stock.builder().id(stockId1).quantity(50).product(product1).location(location1).build();
         Stock stock3 = Stock.builder().id(stockId3).quantity(15).product(product2).location(location1).build();
-
         Stock stock2 = Stock.builder().id(stockId2).quantity(200).product(product1).location(location2).build();
         Stock stock4 = Stock.builder().id(stockId4).quantity(50).product(product2).location(location2).build();
-
         Stock stock5 = Stock.builder().id(stockId5).quantity(75).product(product2).location(location3).build();
         Stock stock6 = Stock.builder().id(stockId6).quantity(150).product(product3).location(location3).build();
 
-        Customer customer = Customer.builder()
-                .id(1)
-                .firstName("Bogdan Alexandru")
-                .lastName("Ciubuc")
-                .emailAddress("afw@y.c")
-                .username("aciubuc")
-                .password("pass")
-                .build();
+        Customer customer = Customer.builder().id(1).firstName("Bogdan Alexandru").lastName("Ciubuc").emailAddress("afw@y.c").username("aciubuc").password("pass").build();
 
-        Order orderNull1 = Order.builder()
-                .id(null)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location2)
-                .build();
+        Order orderNull1 = Order.builder().id(null).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location2).build();
+        Order orderNull2 = Order.builder().id(null).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location1).build();
+        Order orderNull3 = Order.builder().id(null).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location3).build();
 
-        Order orderNull2 = Order.builder()
-                .id(null)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location1)
-                .build();
-
-        Order orderNull3 = Order.builder()
-                .id(null)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location3)
-                .build();
-
-        Order order1 = Order.builder()
-                .id(1)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location2)
-                .build();
-
-        Order order2 = Order.builder()
-                .id(2)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location1)
-                .build();
-
-        Order order3 = Order.builder()
-                .id(3)
-                .address(address4)
-                .createdAt(LocalDateTime.parse("2018-07-07T10:19:00"))
-                .customer(customer)
-                .location(location3)
-                .build();
+        Order order1 = Order.builder().id(1).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location2).build();
+        Order order2 = Order.builder().id(2).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location1).build();
+        Order order3 = Order.builder().id(3).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location3).build();
 
         when(locationRepository.findAll()).thenReturn(Arrays.asList(location1, location2, location3));
 
