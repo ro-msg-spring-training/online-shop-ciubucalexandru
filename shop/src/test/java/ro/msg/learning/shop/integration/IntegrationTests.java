@@ -12,11 +12,6 @@ import ro.msg.learning.shop.repository.*;
 import ro.msg.learning.shop.strategy.MostAbundantStrategy;
 import ro.msg.learning.shop.strategy.SingleLocationStrategy;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ActiveProfiles("test")
-@TestPropertySource("classpath:application-test.properties")
-@Transactional
 public class IntegrationTests {
 
     @Autowired
@@ -37,7 +32,7 @@ public class IntegrationTests {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Autowired
+    protected @Autowired
     AddressRepository addressRepository;
 
     protected SingleLocationStrategy singleLocationStrategy;
