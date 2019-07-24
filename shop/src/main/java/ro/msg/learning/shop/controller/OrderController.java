@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    @Transactional
     @PostMapping("/")
     public List<OrderDTO> createOrder(@RequestBody OrderCreationDTO orderCreationDTO) {
         return orderService.createOrder(orderCreationDTO);
