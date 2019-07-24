@@ -1,4 +1,4 @@
-package ro.msg.learning.shop;
+package ro.msg.learning.shop.unit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,11 +1,8 @@
-package ro.msg.learning.shop;
+package ro.msg.learning.shop.unit;
 
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import ro.msg.learning.shop.model.*;
-import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
 import ro.msg.learning.shop.repository.*;
 
@@ -16,7 +13,6 @@ import java.util.Arrays;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
 public class StrategyTests {
 
     @Mock
