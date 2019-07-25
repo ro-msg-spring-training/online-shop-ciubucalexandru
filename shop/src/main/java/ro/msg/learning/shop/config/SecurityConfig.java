@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", H2_CONSOLE).authenticated()
                 .antMatchers(LOGIN_PAGE).permitAll()
                 .and()
-                .httpBasic();
+                .httpBasic().and()
+                .headers().frameOptions().disable();
     }
 
     private void configureFormBased(HttpSecurity http) throws Exception {
@@ -69,6 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(LOGIN_PAGE).permitAll().failureForwardUrl("/login-error")
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .headers().frameOptions().disable();
     }
 }
