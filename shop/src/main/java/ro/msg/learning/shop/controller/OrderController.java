@@ -1,10 +1,7 @@
 package ro.msg.learning.shop.controller;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.dto.OrderCreationDTO;
 import ro.msg.learning.shop.dto.OrderDTO;
 import ro.msg.learning.shop.service.OrderService;
@@ -25,5 +22,10 @@ public class OrderController {
     @PostMapping("/")
     public List<OrderDTO> createOrder(@RequestBody OrderCreationDTO orderCreationDTO) {
         return orderService.createOrder(orderCreationDTO);
+    }
+
+    @GetMapping("/")
+    public String testOrder() {
+        return "TESTING THE SECURITY";
     }
 }

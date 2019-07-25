@@ -13,8 +13,9 @@ INSERT INTO product_category VALUES (3, 'Peripherals', 'Devices connected to the
 INSERT INTO supplier VALUES (1, 'SC.EMAG.SRL');
 INSERT INTO supplier VALUES (2, 'SC.PC-GARAGE.SRL');
 
-INSERT INTO customer VALUES (1, 'Bogdan Alexandru', 'Ciubuc', 'alexciubuc', 'somepass', 'alex@ciubuc.com');
-INSERT INTO customer VALUES (2, 'Horea Serban', 'Popa', 'horeapopas', 'somepass2', 'popa@gmail.com');
+INSERT INTO customer VALUES (1, 'Bogdan Alexandru', 'Ciubuc', 'alexciubuc', '{noop}p', 'alex@ciubuc.com');
+INSERT INTO customer VALUES (2, 'Horea Serban', 'Popa', 'horeapopas', '{noop}sp', 'popa@gmail.com');
+INSERT INTO customer VALUES (3, 'Horea Serban', 'Popa', 'alexciubuc2', '{noop}sp', 'popa@gmail.com');
 
 INSERT INTO product VALUES (1, 'iPhone 6S', 'The 6S variant of Apple''s smartphones.', 1400.80, 0.325, 2, 1, 'something:url/img');
 INSERT INTO product VALUES (2, 'Basketball', 'A basketball designed for indoor play.', 100.00, 0.6, 2, 1, 'something2:url2/img2');
