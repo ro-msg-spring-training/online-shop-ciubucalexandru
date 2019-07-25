@@ -15,6 +15,6 @@ public class LoginController {
     @GetMapping("/")
     @ResponseBody
     public String afterLogin(){
-        return "You actually logged in bwoi";
+        return "You actually logged in!";
     }
 }
