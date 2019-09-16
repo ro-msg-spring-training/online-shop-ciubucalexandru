@@ -21,7 +21,7 @@ public class MostAbundantTests extends StrategyTests {
 
     @InjectMocks
     private MostAbundantStrategy mostAbundantStrategy;
-
+/*
     @Test
     public void mostAbundantTestSuccessful() {
 
@@ -43,7 +43,7 @@ public class MostAbundantTests extends StrategyTests {
         assertThat(ordersReturned.get(0).getLocation().getId()).isEqualTo(3);
         assertThat(ordersReturned.get(1).getLocation().getId()).isEqualTo(2);
     }
-
+*/
     @Test(expected = CouldNotFindLocationException.class)
     public void mostAbundantTestFailure() {
 
