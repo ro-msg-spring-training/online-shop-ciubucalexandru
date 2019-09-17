@@ -3,12 +3,14 @@ package ro.msg.learning.shop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.dto.ProductDTO;
+import ro.msg.learning.shop.exception.CouldNotFindProductException;
 import ro.msg.learning.shop.model.Product;
 import ro.msg.learning.shop.repository.ProductCategoryRepository;
 import ro.msg.learning.shop.repository.ProductRepository;
 import ro.msg.learning.shop.repository.SupplierRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,12 +28,19 @@ public class ProductService {
     }
 
     public ProductDTO getProductById(Integer productId) {
-        return ProductDTO.toDTO(productRepository.getOne(productId));
+        Optional<Product> productOptional = productRepository.findById(productId);
+
+        if (productOptional.isPresent())
+            return ProductDTO.toDTO(productOptional.get());
+        else throw new CouldNotFindProductException();
     }
 
     public void deleteProduct(ProductDTO productDTO) {
-        Product product = productRepository.getOne(productDTO.getProductId());
-        productRepository.delete(product);
+        Optional<Product> productOptional = productRepository.findById(productDTO.getProductId());
+
+        if (productOptional.isPresent())
+            productRepository.delete(productOptional.get());
+        else throw new CouldNotFindProductException();
     }
 
     public void deleteProductById(Integer productId) {
@@ -39,13 +48,16 @@ public class ProductService {
     }
 
     public ProductDTO updateProduct(ProductDTO productDTO) {
-        if (productRepository.getOne(productDTO.getProductId()) != null) {
+
+        Optional<Product> productOptional = productRepository.findById(productDTO.getProductId());
+
+        if (productOptional.isPresent()) {
             Product product = generateProduct(productDTO);
             product.setId(productDTO.getProductId());
 
             return ProductDTO.toDTO(productRepository.save(product));
         } else {
-            return null;
+            throw new CouldNotFindProductException();
         }
     }
 

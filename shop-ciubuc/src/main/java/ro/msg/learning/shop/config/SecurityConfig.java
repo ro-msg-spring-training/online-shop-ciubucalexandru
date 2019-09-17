@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if ("with-basic".equals(securityOption)) {
             configureHttpBasic(http);
-        } else if ("with-form".equals(securityOption)){
+        } else if ("with-form".equals(securityOption)) {
             configureFormBased(http);
         }
     }
