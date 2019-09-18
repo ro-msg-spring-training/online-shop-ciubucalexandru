@@ -87,9 +87,7 @@ public class ProximityStrategy implements CreateOrderStrategy {
         distances.remove(0);
 
         List<ProductQuantityDTO> currentQuantities = orderCreationDTO.getProducts();
-
         List<StrategyResultsDTO> strategyResultsDTOS = new ArrayList<>();
-
         int locationsInitialSize = locations.size();
 
         for (int i = 0; i < locationsInitialSize; i++) {
