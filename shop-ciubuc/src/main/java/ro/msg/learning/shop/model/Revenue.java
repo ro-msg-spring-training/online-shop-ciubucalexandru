@@ -1,6 +1,9 @@
 package ro.msg.learning.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.time.LocalDate;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Revenue implements BaseEntity, Serializable {
 
     @Id

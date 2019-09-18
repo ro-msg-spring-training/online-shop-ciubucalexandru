@@ -47,7 +47,7 @@ public class ProximityStrategy implements CreateOrderStrategy {
 
         List<String> locationAddresses = new ArrayList<>();
         List<Location> locations;
-        List<ProductQuantityDTO> requestedQuantities = copyInitialList(orderCreationDTO.getProducts());
+        List<ProductQuantityDTO> requestedQuantities = copyInitialProductsQuantitiesList(orderCreationDTO.getProducts());
 
         Optional<Address> optionalAddress = addressRepository.findById(orderCreationDTO.getAddressId());
         locations = locationRepository.findAll();
@@ -109,7 +109,7 @@ public class ProximityStrategy implements CreateOrderStrategy {
                     Optional<Stock> stockOptional = stockRepository.getByLocationAndProductId(location, productQuantityDTO.getId());
                     Optional<Product> product = productRepository.findById(productQuantityDTO.getId());
 
-                    if (stockOptional.isPresent() && product.isPresent()) {
+                    if (stockOptional.isPresent() && product.isPresent() && stockOptional.get().getQuantity() > 0) {
                         Integer boughtQuantity;
 
                         if (stockOptional.get().getQuantity() >= productQuantityDTO.getQuantity()) {
@@ -163,7 +163,7 @@ public class ProximityStrategy implements CreateOrderStrategy {
         });
     }
 
-    private List<ProductQuantityDTO> copyInitialList(List<ProductQuantityDTO> initialList) {
+    private List<ProductQuantityDTO> copyInitialProductsQuantitiesList(List<ProductQuantityDTO> initialList) {
         List<ProductQuantityDTO> newList = new ArrayList<>();
         initialList.forEach(pq -> newList.add(new ProductQuantityDTO(pq.getId(), pq.getQuantity())));
         return newList;

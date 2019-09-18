@@ -7,12 +7,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractGenericHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import ro.msg.learning.shop.exception.CouldNotConvertToCsvException;
 import ro.msg.learning.shop.util.CsvConverter;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Slf4j
@@ -31,9 +33,12 @@ public class CsvHttpMessageConverter extends AbstractGenericHttpMessageConverter
 
         List<Object> arrayList;
 
-        if (o instanceof ArrayList)
+        if (o instanceof List)
             arrayList = new ArrayList<>((ArrayList<Object>) o);
-        else {
+        else if (o instanceof LinkedHashMap){
+            log.warn("Error while retrieving the data!");
+            throw new CouldNotConvertToCsvException();
+        } else {
             arrayList = Collections.singletonList(o);
         }
 
