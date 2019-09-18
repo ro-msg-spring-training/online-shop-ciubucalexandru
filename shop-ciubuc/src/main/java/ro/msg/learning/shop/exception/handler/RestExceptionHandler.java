@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ro.msg.learning.shop.exception.*;
+import ro.msg.learning.shop.exception.AddressNotFoundException;
+import ro.msg.learning.shop.exception.CouldNotConvertToCsvException;
+import ro.msg.learning.shop.exception.CouldNotFindLocationException;
+import ro.msg.learning.shop.exception.CouldNotFindProductException;
+import ro.msg.learning.shop.exception.OrderIsIncompleteException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
