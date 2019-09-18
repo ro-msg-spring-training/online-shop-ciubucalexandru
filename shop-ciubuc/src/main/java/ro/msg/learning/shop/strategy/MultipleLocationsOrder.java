@@ -4,10 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.OrderCreationDTO;
 import ro.msg.learning.shop.dto.StrategyResultsDTO;
-import ro.msg.learning.shop.model.*;
+import ro.msg.learning.shop.model.Address;
+import ro.msg.learning.shop.model.Customer;
+import ro.msg.learning.shop.model.Location;
+import ro.msg.learning.shop.model.Product;
+import ro.msg.learning.shop.model.Order;
+import ro.msg.learning.shop.model.OrderDetail;
+import ro.msg.learning.shop.model.Stock;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.*;
+import ro.msg.learning.shop.repository.CustomerRepository;
+import ro.msg.learning.shop.repository.OrderDetailRepository;
+import ro.msg.learning.shop.repository.OrderRepository;
+import ro.msg.learning.shop.repository.StockRepository;
+import ro.msg.learning.shop.repository.AddressRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +34,7 @@ public class MultipleLocationsOrder {
     private final CustomerRepository customerRepository;
     private final AddressRepository addressRepository;
 
-    List<Order> generateOrder(List<StrategyResultsDTO> results, OrderCreationDTO orderCreationDTO) {
+    protected List<Order> generateOrder(List<StrategyResultsDTO> results, OrderCreationDTO orderCreationDTO) {
 
         Customer customer = customerRepository.getOne(1);
         Address address = addressRepository.getOne(orderCreationDTO.getAddressId());
