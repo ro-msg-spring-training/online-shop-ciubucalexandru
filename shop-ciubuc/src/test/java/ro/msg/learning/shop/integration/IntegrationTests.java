@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.msg.learning.shop.repository.*;
 import ro.msg.learning.shop.strategy.MostAbundantStrategy;
+import ro.msg.learning.shop.strategy.MultipleLocationsOrder;
 import ro.msg.learning.shop.strategy.SingleLocationStrategy;
 
 public class IntegrationTests {
@@ -29,6 +30,9 @@ public class IntegrationTests {
     protected @Autowired
     AddressRepository addressRepository;
 
+    protected @Autowired
+    MultipleLocationsOrder multipleLocationsOrder;
+
     protected SingleLocationStrategy singleLocationStrategy;
     protected MostAbundantStrategy mostAbundantStrategy;
 
@@ -45,9 +49,6 @@ public class IntegrationTests {
         mostAbundantStrategy = new MostAbundantStrategy(locationRepository,
                 stockRepository,
                 productRepository,
-                orderRepository,
-                orderDetailRepository,
-                customerRepository,
-                addressRepository);
+                multipleLocationsOrder);
     }
 }

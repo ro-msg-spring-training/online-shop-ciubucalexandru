@@ -1,10 +1,12 @@
-INSERT INTO address VALUES (1, 'Romania', 'Cluj-Napoca', 'Cluj', 'Samuel Brassai');
-INSERT INTO address VALUES (2, 'Romania', 'Campia Turzii', 'Cluj', 'Teilor');
-INSERT INTO address VALUES (3, 'Romania', 'Zalau', 'Salaj', 'Baritiu');
-INSERT INTO address VALUES (4, 'Romania', 'Turda', 'Cluj', 'Republicii');
+INSERT INTO address VALUES (1, 'USA', 'Newton Ridge', 'GA', 'Samuel Brassai');
+INSERT INTO address VALUES (2, 'USA', 'Alcovy', 'GA', 'Teilor');
+INSERT INTO address VALUES (3, 'USA', 'Oxford', 'GA', 'Baritiu');
+INSERT INTO address VALUES (4, 'USA', 'Willow Woods', 'GA', 'Republicii');
 
 INSERT INTO location VALUES (1, 'Deposit 1', 1);
-INSERT INTO location VALUES (2, 'Deposit 2', 4);
+INSERT INTO location VALUES (2, 'Deposit 2', 2);
+INSERT INTO location VALUES (3, 'Deposit 3', 3);
+INSERT INTO location VALUES (4, 'Deposit 4', 4);
 
 INSERT INTO product_category VALUES (1, 'Electronics', 'Any device that uses electricity in some way');
 INSERT INTO product_category VALUES (2, 'Sports', 'Items involved in sport activities');
@@ -32,9 +34,12 @@ INSERT INTO orders VALUES (3, 1, 2, '2019-07-14 15:06:09', 2);
 
 INSERT INTO stock VALUES (1, 1, 100);
 INSERT INTO stock VALUES (1, 2, 400);
+INSERT INTO stock VALUES (1, 3, 200);
+INSERT INTO stock VALUES (1, 4, 280);
 
 INSERT INTO stock VALUES (2, 1, 15);
 INSERT INTO stock VALUES (2, 2, 1);
+INSERT INTO stock VALUES (2, 4, 20);
 
 INSERT INTO stock VALUES (3, 2, 500);
 
