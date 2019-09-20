@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.repository.impl;
+package ro.msg.learning.shop.repository.jpa.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.exception.CouldNotFindProductCategoryException;
 import ro.msg.learning.shop.model.ProductCategory;
-import ro.msg.learning.shop.repository.mapper.ProductCategoryRowMapper;
+import ro.msg.learning.shop.repository.jpa.mapper.ProductCategoryRowMapper;
 import ro.msg.learning.shop.util.RepositoryUtils;
 
 import javax.persistence.EntityManager;
@@ -28,7 +28,7 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class ProductCategoryRepositoryImpl implements JpaRepository<ProductCategory, Integer> {
+public class ProductCategoryJpaRepositoryImpl implements JpaRepository<ProductCategory, Integer> {
 
     private final JdbcTemplate jdbcTemplate;
     private final DataSource dataSource;

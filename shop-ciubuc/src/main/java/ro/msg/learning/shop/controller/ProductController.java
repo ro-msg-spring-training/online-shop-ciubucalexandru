@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.dto.PageOptionsDTO;
 import ro.msg.learning.shop.dto.ProductDTO;
 import ro.msg.learning.shop.dto.SortOptionsListDTO;
+import ro.msg.learning.shop.model.mongodb.ProductMongo;
 import ro.msg.learning.shop.service.ProductService;
 
 import java.util.List;
@@ -61,5 +62,15 @@ public class ProductController {
     @PostMapping("/all/sorted")
     public List<ProductDTO> getProductsSorted(@RequestBody SortOptionsListDTO sortOptionsListDTO) {
         return productService.getAllProductsSorted(sortOptionsListDTO.getSortOptions());
+    }
+
+    @PostMapping("/mongo/create")
+    public ProductMongo createProductMongo(@RequestBody ProductMongo productMongo) {
+        return productService.createProductMongo(productMongo);
+    }
+
+    @GetMapping("/mongo/all")
+    public List<ProductMongo> getAllMongoProducts() {
+        return productService.getAllMongoProducts();
     }
 }

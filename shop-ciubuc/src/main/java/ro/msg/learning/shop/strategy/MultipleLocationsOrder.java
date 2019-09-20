@@ -13,11 +13,11 @@ import ro.msg.learning.shop.model.OrderDetail;
 import ro.msg.learning.shop.model.Stock;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.CustomerRepository;
-import ro.msg.learning.shop.repository.OrderDetailRepository;
-import ro.msg.learning.shop.repository.OrderRepository;
-import ro.msg.learning.shop.repository.StockRepository;
-import ro.msg.learning.shop.repository.AddressRepository;
+import ro.msg.learning.shop.repository.jpa.CustomerJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderDetailJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
+import ro.msg.learning.shop.repository.jpa.AddressJpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +28,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MultipleLocationsOrder {
 
-    private final StockRepository stockRepository;
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final CustomerRepository customerRepository;
-    private final AddressRepository addressRepository;
+    private final StockJpaRepository stockJpaRepository;
+    private final OrderJpaRepository orderJpaRepository;
+    private final OrderDetailJpaRepository orderDetailJpaRepository;
+    private final CustomerJpaRepository customerJpaRepository;
+    private final AddressJpaRepository addressJpaRepository;
 
     protected List<Order> generateOrder(List<StrategyResultsDTO> results, OrderCreationDTO orderCreationDTO) {
 
-        Customer customer = customerRepository.getOne(1);
-        Address address = addressRepository.getOne(orderCreationDTO.getAddressId());
+        Customer customer = customerJpaRepository.getOne(1);
+        Address address = addressJpaRepository.getOne(orderCreationDTO.getAddressId());
 
         Map<Location, Map<Product, Integer>> groupedByLocation = results
                 .stream()
@@ -58,7 +58,7 @@ public class MultipleLocationsOrder {
                     .address(address)
                     .build();
 
-            order = orderRepository.save(order);
+            order = orderJpaRepository.save(order);
             final int orderId = order.getId();
             final Location location = order.getLocation();
 
@@ -66,16 +66,16 @@ public class MultipleLocationsOrder {
 
             value.forEach((product, quantity) -> {
 
-                orderDetailRepository.save(OrderDetail.builder()
+                orderDetailJpaRepository.save(OrderDetail.builder()
                         .id(new OrderDetailId(orderId, product.getId()))
                         .quantity(quantity)
                         .build()
                 );
 
                 StockId stockId = new StockId(product.getId(), location.getId());
-                Stock stock = stockRepository.getOne(stockId);
+                Stock stock = stockJpaRepository.getOne(stockId);
                 stock.setQuantity(stock.getQuantity() - quantity);
-                stockRepository.save(stock);
+                stockJpaRepository.save(stock);
             });
         });
 

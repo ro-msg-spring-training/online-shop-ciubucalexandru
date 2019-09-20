@@ -13,6 +13,7 @@ import ro.msg.learning.shop.dto.PageOptionsDTO;
 import ro.msg.learning.shop.dto.ProductCategoryListDTO;
 import ro.msg.learning.shop.dto.SortOptionsListDTO;
 import ro.msg.learning.shop.model.ProductCategory;
+import ro.msg.learning.shop.model.mongodb.ProductCategoryMongo;
 import ro.msg.learning.shop.service.ProductCategoryService;
 
 import java.util.List;
@@ -95,5 +96,15 @@ public class ProductCategoryController {
     @PostMapping("/all/by-example/{matchingOption}")
     public List findAllByExample(@PathVariable("matchingOption") String matchingOption, @RequestBody ProductCategory productCategory) {
         return productCategoryService.findAllByExample(productCategory, matchingOption);
+    }
+
+    @PostMapping("/mongo/create")
+    public ProductCategoryMongo createProductCategoryMongo(@RequestBody ProductCategoryMongo productCategoryMongo) {
+        return productCategoryService.createProductCategoryMongo(productCategoryMongo);
+    }
+
+    @GetMapping("/mongo/all")
+    public List<ProductCategoryMongo> getAllMongoCategories() {
+        return productCategoryService.getAllMongoCategories();
     }
 }

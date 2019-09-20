@@ -45,7 +45,7 @@ public class SingleLocationIntegrationTests extends IntegrationTests {
         assertThat(order).isNotNull();
         assertThat(order.getAddress().getId()).isEqualTo(1);
 
-        List<OrderDetail> details = orderDetailRepository.getByOrder(orders.get(0));
+        List<OrderDetail> details = orderDetailJpaRepository.getByOrder(orders.get(0));
 
         assertThat(details.get(0).getQuantity()).isEqualTo(40);
         assertThat(details.get(0).getId().getProductId()).isEqualTo(1);

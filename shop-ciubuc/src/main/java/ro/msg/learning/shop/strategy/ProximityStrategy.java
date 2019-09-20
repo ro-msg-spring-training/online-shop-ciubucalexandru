@@ -22,10 +22,10 @@ import ro.msg.learning.shop.model.Location;
 import ro.msg.learning.shop.model.Product;
 import ro.msg.learning.shop.model.Order;
 import ro.msg.learning.shop.model.Stock;
-import ro.msg.learning.shop.repository.AddressRepository;
-import ro.msg.learning.shop.repository.LocationRepository;
-import ro.msg.learning.shop.repository.ProductRepository;
-import ro.msg.learning.shop.repository.StockRepository;
+import ro.msg.learning.shop.repository.jpa.AddressJpaRepository;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.ProductJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,10 +36,10 @@ import java.util.stream.Collectors;
 public class ProximityStrategy implements CreateOrderStrategy {
 
     private final RouteMatrixConfig routeMatrixConfig;
-    private final LocationRepository locationRepository;
-    private final AddressRepository addressRepository;
-    private final StockRepository stockRepository;
-    private final ProductRepository productRepository;
+    private final LocationJpaRepository locationJpaRepository;
+    private final AddressJpaRepository addressJpaRepository;
+    private final StockJpaRepository stockJpaRepository;
+    private final ProductJpaRepository productJpaRepository;
     private final MultipleLocationsOrder multipleLocationsOrder;
 
     @Override
@@ -49,8 +49,8 @@ public class ProximityStrategy implements CreateOrderStrategy {
         List<Location> locations;
         List<ProductQuantityDTO> requestedQuantities = copyInitialProductsQuantitiesList(orderCreationDTO.getProducts());
 
-        Optional<Address> optionalAddress = addressRepository.findById(orderCreationDTO.getAddressId());
-        locations = locationRepository.findAll();
+        Optional<Address> optionalAddress = addressJpaRepository.findById(orderCreationDTO.getAddressId());
+        locations = locationJpaRepository.findAll();
 
         if (!optionalAddress.isPresent()) throw new AddressNotFoundException();
 
@@ -104,8 +104,8 @@ public class ProximityStrategy implements CreateOrderStrategy {
 
                 if (productQuantityDTO.getQuantity() > 0) {
 
-                    Optional<Stock> stockOptional = stockRepository.getByLocationAndProductId(location, productQuantityDTO.getId());
-                    Optional<Product> product = productRepository.findById(productQuantityDTO.getId());
+                    Optional<Stock> stockOptional = stockJpaRepository.getByLocationAndProductId(location, productQuantityDTO.getId());
+                    Optional<Product> product = productJpaRepository.findById(productQuantityDTO.getId());
 
                     if (stockOptional.isPresent() && product.isPresent() && stockOptional.get().getQuantity() > 0) {
                         Integer boughtQuantity;

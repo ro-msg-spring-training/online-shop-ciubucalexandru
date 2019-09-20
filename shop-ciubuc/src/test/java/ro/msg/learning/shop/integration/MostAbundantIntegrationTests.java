@@ -44,8 +44,8 @@ public class MostAbundantIntegrationTests extends IntegrationTests {
         Order order1 = orders.get(0);
         Order order2 = orders.get(1);
 
-        List<OrderDetail> details1 = orderDetailRepository.getByOrder(order1);
-        List<OrderDetail> details2 = orderDetailRepository.getByOrder(order2);
+        List<OrderDetail> details1 = orderDetailJpaRepository.getByOrder(order1);
+        List<OrderDetail> details2 = orderDetailJpaRepository.getByOrder(order2);
 
         assertThat(details1.size()).isEqualTo(1);
         assertThat(details2.size()).isEqualTo(1);

@@ -7,18 +7,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.model.Customer;
-import ro.msg.learning.shop.repository.CustomerRepository;
+import ro.msg.learning.shop.repository.jpa.CustomerJpaRepository;
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerJpaRepository customerJpaRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        Customer customer = customerRepository.findByUsername(username);
+        Customer customer = customerJpaRepository.findByUsername(username);
         User.UserBuilder userBuilder;
 
         if (customer != null) {

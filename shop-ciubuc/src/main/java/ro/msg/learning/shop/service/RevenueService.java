@@ -9,10 +9,10 @@ import ro.msg.learning.shop.model.Location;
 import ro.msg.learning.shop.model.Order;
 import ro.msg.learning.shop.model.OrderDetail;
 import ro.msg.learning.shop.model.Revenue;
-import ro.msg.learning.shop.repository.LocationRepository;
-import ro.msg.learning.shop.repository.OrderDetailRepository;
-import ro.msg.learning.shop.repository.OrderRepository;
-import ro.msg.learning.shop.repository.RevenueRepository;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderDetailJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderJpaRepository;
+import ro.msg.learning.shop.repository.jpa.RevenueJpaRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RevenueService {
 
-    private final LocationRepository locationRepository;
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final RevenueRepository revenueRepository;
+    private final LocationJpaRepository locationJpaRepository;
+    private final OrderJpaRepository orderJpaRepository;
+    private final OrderDetailJpaRepository orderDetailJpaRepository;
+    private final RevenueJpaRepository revenueJpaRepository;
 
     @Scheduled(cron = "00 00 00 * * *")
     public void aggregateRevenue() {
-        List<Location> allLocations = locationRepository.findAll();
+        List<Location> allLocations = locationJpaRepository.findAll();
         LocalDate yesterday = LocalDate.now().minusDays(1);
 
         allLocations.forEach(location -> {
@@ -44,12 +44,12 @@ public class RevenueService {
                     .sum(sumForLocation)
                     .build();
 
-            revenueRepository.save(revenue);
+            revenueJpaRepository.save(revenue);
         });
     }
 
     private BigDecimal getSumForLocation(Location location) {
-        List<Order> orders = orderRepository.findAllByLocation(location);
+        List<Order> orders = orderJpaRepository.findAllByLocation(location);
 
         return orders.stream()
                 .map(this::getSumForOrder)
@@ -57,7 +57,7 @@ public class RevenueService {
     }
 
     private BigDecimal getSumForOrder(Order order) {
-        List<OrderDetail> orderDetails = orderDetailRepository.getByOrder(order);
+        List<OrderDetail> orderDetails = orderDetailJpaRepository.getByOrder(order);
 
         return orderDetails.stream()
                 .map(orderDetail -> orderDetail.getProduct().getPrice())
@@ -65,7 +65,7 @@ public class RevenueService {
     }
 
     public List<RevenueDTO> getAllRevenue() {
-        return revenueRepository.findAll().stream()
+        return revenueJpaRepository.findAll().stream()
                 .map(RevenueDTO::fromRevenue)
                 .collect(Collectors.toList());
     }

@@ -8,9 +8,11 @@ import ro.msg.learning.shop.dto.ProductDTO;
 import ro.msg.learning.shop.dto.SortOption;
 import ro.msg.learning.shop.exception.CouldNotFindProductException;
 import ro.msg.learning.shop.model.Product;
-import ro.msg.learning.shop.repository.ProductCategoryRepository;
-import ro.msg.learning.shop.repository.SupplierRepository;
-import ro.msg.learning.shop.repository.impl.ProductRepositoryImpl;
+import ro.msg.learning.shop.model.mongodb.ProductMongo;
+import ro.msg.learning.shop.repository.jpa.ProductCategoryJpaRepository;
+import ro.msg.learning.shop.repository.jpa.SupplierJpaRepository;
+import ro.msg.learning.shop.repository.jpa.impl.ProductJpaRepositoryImpl;
+import ro.msg.learning.shop.repository.mongo.ProductMongoRepository;
 import ro.msg.learning.shop.util.RepositoryUtils;
 
 import java.util.List;
@@ -21,10 +23,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepositoryImpl productRepository;
-    private final ProductCategoryRepository productCategoryRepository;
-    private final SupplierRepository supplierRepository;
+    private final ProductJpaRepositoryImpl productRepository;
+    private final ProductCategoryJpaRepository productCategoryJpaRepository;
+    private final SupplierJpaRepository supplierJpaRepository;
     private final RepositoryUtils repositoryUtils;
+    private final ProductMongoRepository productMongoRepository;
 
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = generateProduct(productDTO);
@@ -87,6 +90,14 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public ProductMongo createProductMongo(ProductMongo productMongo) {
+        return productMongoRepository.save(productMongo);
+    }
+
+    public List<ProductMongo> getAllMongoProducts() {
+        return productMongoRepository.findAll();
+    }
+
     private Product generateProduct(ProductDTO productDTO) {
 
         return Product.builder()
@@ -95,8 +106,8 @@ public class ProductService {
                 .price(productDTO.getPrice())
                 .weight(productDTO.getWeight())
                 .imageUrl(productDTO.getImageUrl())
-                .productCategory(productCategoryRepository.getOne(productDTO.getCategoryId()))
-                .supplier(supplierRepository.getOne(productDTO.getSupplierId()))
+                .productCategory(productCategoryJpaRepository.getOne(productDTO.getCategoryId()))
+                .supplier(supplierJpaRepository.getOne(productDTO.getSupplierId()))
                 .build();
     }
 }

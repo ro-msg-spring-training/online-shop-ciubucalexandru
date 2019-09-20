@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.repository.mapper;
+package ro.msg.learning.shop.repository.jpa.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import ro.msg.learning.shop.model.ProductCategory;

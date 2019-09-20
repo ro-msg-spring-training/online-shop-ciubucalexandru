@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Document(collection = "product")
 public class Product implements BaseEntity, Serializable {
 
     @Id

@@ -2,7 +2,7 @@ package ro.msg.learning.shop.integration;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import ro.msg.learning.shop.repository.*;
+import ro.msg.learning.shop.repository.jpa.*;
 import ro.msg.learning.shop.strategy.MostAbundantStrategy;
 import ro.msg.learning.shop.strategy.MultipleLocationsOrder;
 import ro.msg.learning.shop.strategy.SingleLocationStrategy;
@@ -10,25 +10,25 @@ import ro.msg.learning.shop.strategy.SingleLocationStrategy;
 public class IntegrationTests {
 
     protected @Autowired
-    LocationRepository locationRepository;
+    LocationJpaRepository locationJpaRepository;
 
     protected @Autowired
-    StockRepository stockRepository;
+    StockJpaRepository stockJpaRepository;
 
     protected @Autowired
-    ProductRepository productRepository;
+    ProductJpaRepository productJpaRepository;
 
     protected @Autowired
-    OrderRepository orderRepository;
+    OrderJpaRepository orderJpaRepository;
 
     protected @Autowired
-    OrderDetailRepository orderDetailRepository;
+    OrderDetailJpaRepository orderDetailJpaRepository;
 
     protected @Autowired
-    CustomerRepository customerRepository;
+    CustomerJpaRepository customerJpaRepository;
 
     protected @Autowired
-    AddressRepository addressRepository;
+    AddressJpaRepository addressJpaRepository;
 
     protected @Autowired
     MultipleLocationsOrder multipleLocationsOrder;
@@ -38,17 +38,17 @@ public class IntegrationTests {
 
     @Before
     public void initialize() {
-        singleLocationStrategy = new SingleLocationStrategy(locationRepository,
-                stockRepository,
-                productRepository,
-                orderRepository,
-                orderDetailRepository,
-                customerRepository,
-                addressRepository);
+        singleLocationStrategy = new SingleLocationStrategy(locationJpaRepository,
+                stockJpaRepository,
+                productJpaRepository,
+                orderJpaRepository,
+                orderDetailJpaRepository,
+                customerJpaRepository,
+                addressJpaRepository);
 
-        mostAbundantStrategy = new MostAbundantStrategy(locationRepository,
-                stockRepository,
-                productRepository,
+        mostAbundantStrategy = new MostAbundantStrategy(locationJpaRepository,
+                stockJpaRepository,
+                productJpaRepository,
                 multipleLocationsOrder);
     }
 }

@@ -9,7 +9,7 @@ import ro.msg.learning.shop.exception.CouldNotFindLocationException;
 import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.*;
+import ro.msg.learning.shop.repository.jpa.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,18 +21,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SingleLocationStrategy implements CreateOrderStrategy {
 
-    private final LocationRepository locationRepository;
-    private final StockRepository stockRepository;
-    private final ProductRepository productRepository;
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final CustomerRepository customerRepository;
-    private final AddressRepository addressRepository;
+    private final LocationJpaRepository locationJpaRepository;
+    private final StockJpaRepository stockJpaRepository;
+    private final ProductJpaRepository productJpaRepository;
+    private final OrderJpaRepository orderJpaRepository;
+    private final OrderDetailJpaRepository orderDetailJpaRepository;
+    private final CustomerJpaRepository customerJpaRepository;
+    private final AddressJpaRepository addressJpaRepository;
 
     @Override
     public List<Order> createOrder(OrderCreationDTO orderCreationDTO) {
 
-        List<Location> locations = locationRepository.findAll()
+        List<Location> locations = locationJpaRepository.findAll()
                 .stream()
                 .filter(location -> containsAllProductsAndQuantities(location, orderCreationDTO.getProducts()))
                 .collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class SingleLocationStrategy implements CreateOrderStrategy {
         orderCreationDTO.getProducts().forEach(productQuantityDTO ->
                 strategyResultsDTOS.add(StrategyResultsDTO.builder()
                         .location(locations.get(0))
-                        .product(productRepository.getOne(productQuantityDTO.getId()))
+                        .product(productJpaRepository.getOne(productQuantityDTO.getId()))
                         .quantity(productQuantityDTO.getQuantity())
                         .build()
                 )
@@ -56,7 +56,7 @@ public class SingleLocationStrategy implements CreateOrderStrategy {
 
     private boolean containsAllProductsAndQuantities(Location location, List<ProductQuantityDTO> products) {
 
-        List<Stock> stocks = stockRepository.getByLocation(location);
+        List<Stock> stocks = stockJpaRepository.getByLocation(location);
 
         List<Integer> stockProductsIds = stocks.stream()
                 .map(stock -> stock.getId().getProductId())
@@ -84,8 +84,8 @@ public class SingleLocationStrategy implements CreateOrderStrategy {
     private List<Order> generateOrder(List<StrategyResultsDTO> results, OrderCreationDTO orderCreationDTO) {
 
         Location shippingLocation = results.get(0).getLocation();
-        Customer customer = customerRepository.getOne(1);
-        Address address = addressRepository.getOne(orderCreationDTO.getAddressId());
+        Customer customer = customerJpaRepository.getOne(1);
+        Address address = addressJpaRepository.getOne(orderCreationDTO.getAddressId());
 
         Order newOrder = Order.builder()
                 .id(null)
@@ -94,19 +94,19 @@ public class SingleLocationStrategy implements CreateOrderStrategy {
                 .createdAt(orderCreationDTO.getCreatedAt())
                 .address(address)
                 .build();
-        newOrder = orderRepository.save(newOrder);
+        newOrder = orderJpaRepository.save(newOrder);
 
         for (StrategyResultsDTO strategyResultsDTO : results) {
 
-            orderDetailRepository.save(OrderDetail.builder()
+            orderDetailJpaRepository.save(OrderDetail.builder()
                     .id(new OrderDetailId(newOrder.getId(), strategyResultsDTO.getProduct().getId()))
                     .quantity(strategyResultsDTO.getQuantity())
                     .build());
 
             StockId stockId = new StockId(strategyResultsDTO.getProduct().getId(), strategyResultsDTO.getLocation().getId());
-            Stock stock = stockRepository.getOne(stockId);
+            Stock stock = stockJpaRepository.getOne(stockId);
             stock.setQuantity(stock.getQuantity() - strategyResultsDTO.getQuantity());
-            stockRepository.save(stock);
+            stockJpaRepository.save(stock);
         }
 
         return Collections.singletonList(newOrder);

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.mockito.Mock;
 import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.*;
+import ro.msg.learning.shop.repository.jpa.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,22 +16,22 @@ import static org.mockito.Mockito.when;
 public class StrategyTests {
 
     @Mock
-    private LocationRepository locationRepository;
+    private LocationJpaRepository locationJpaRepository;
 
     @Mock
-    private StockRepository stockRepository;
+    private StockJpaRepository stockJpaRepository;
 
     @Mock
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJpaRepository;
 
     @Mock
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderJpaRepository;
 
     @Mock
-    private CustomerRepository customerRepository;
+    private CustomerJpaRepository customerJpaRepository;
 
     @Mock
-    private AddressRepository addressRepository;
+    private AddressJpaRepository addressJpaRepository;
 
     @Before
     public void beforeTests() {
@@ -78,27 +78,27 @@ public class StrategyTests {
         Order order2 = Order.builder().id(2).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location1).build();
         Order order3 = Order.builder().id(3).address(address4).createdAt(LocalDateTime.parse("2018-07-07T10:19:00")).customer(customer).location(location3).build();
 
-        when(locationRepository.findAll()).thenReturn(Arrays.asList(location1, location2, location3));
+        when(locationJpaRepository.findAll()).thenReturn(Arrays.asList(location1, location2, location3));
 
-        when(productRepository.getOne(1)).thenReturn(product1);
-        when(productRepository.getOne(2)).thenReturn(product2);
-        when(productRepository.getOne(3)).thenReturn(product3);
+        when(productJpaRepository.getOne(1)).thenReturn(product1);
+        when(productJpaRepository.getOne(2)).thenReturn(product2);
+        when(productJpaRepository.getOne(3)).thenReturn(product3);
 
-        when(stockRepository.getByLocation(location1)).thenReturn(Arrays.asList(stock1, stock3));
-        when(stockRepository.getByLocation(location2)).thenReturn(Arrays.asList(stock2, stock4));
-        when(stockRepository.getByLocation(location3)).thenReturn(Arrays.asList(stock5, stock6));
+        when(stockJpaRepository.getByLocation(location1)).thenReturn(Arrays.asList(stock1, stock3));
+        when(stockJpaRepository.getByLocation(location2)).thenReturn(Arrays.asList(stock2, stock4));
+        when(stockJpaRepository.getByLocation(location3)).thenReturn(Arrays.asList(stock5, stock6));
 
-        when(addressRepository.getOne(1)).thenReturn(address1);
-        when(addressRepository.getOne(2)).thenReturn(address2);
-        when(addressRepository.getOne(3)).thenReturn(address3);
-        when(addressRepository.getOne(4)).thenReturn(address4);
+        when(addressJpaRepository.getOne(1)).thenReturn(address1);
+        when(addressJpaRepository.getOne(2)).thenReturn(address2);
+        when(addressJpaRepository.getOne(3)).thenReturn(address3);
+        when(addressJpaRepository.getOne(4)).thenReturn(address4);
 
-        when(customerRepository.getOne(1)).thenReturn(customer);
+        when(customerJpaRepository.getOne(1)).thenReturn(customer);
 
-        when(orderRepository.save(orderNull1)).thenReturn(order1);
-        when(orderRepository.save(orderNull2)).thenReturn(order2);
-        when(orderRepository.save(orderNull3)).thenReturn(order3);
+        when(orderJpaRepository.save(orderNull1)).thenReturn(order1);
+        when(orderJpaRepository.save(orderNull2)).thenReturn(order2);
+        when(orderJpaRepository.save(orderNull3)).thenReturn(order3);
 
-        when(stockRepository.getOne(any())).thenReturn(stock1);
+        when(stockJpaRepository.getOne(any())).thenReturn(stock1);
     }
 }

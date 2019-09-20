@@ -9,9 +9,9 @@ import ro.msg.learning.shop.exception.CouldNotFindLocationException;
 import ro.msg.learning.shop.model.Location;
 import ro.msg.learning.shop.model.Order;
 import ro.msg.learning.shop.model.Stock;
-import ro.msg.learning.shop.repository.LocationRepository;
-import ro.msg.learning.shop.repository.ProductRepository;
-import ro.msg.learning.shop.repository.StockRepository;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.ProductJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
 
 import java.util.Comparator;
 import java.util.List;
@@ -24,15 +24,15 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class MostAbundantStrategy implements CreateOrderStrategy {
 
-    private final LocationRepository locationRepository;
-    private final StockRepository stockRepository;
-    private final ProductRepository productRepository;
+    private final LocationJpaRepository locationJpaRepository;
+    private final StockJpaRepository stockJpaRepository;
+    private final ProductJpaRepository productJpaRepository;
     private final MultipleLocationsOrder multipleLocationsOrder;
 
     @Override
     public List<Order> createOrder(OrderCreationDTO orderCreationDTO) {
 
-        List<Location> locations = locationRepository.findAll();
+        List<Location> locations = locationJpaRepository.findAll();
 
         List<ProductQuantityDTO> products = orderCreationDTO.getProducts();
 
@@ -47,7 +47,7 @@ public class MostAbundantStrategy implements CreateOrderStrategy {
                 .range(0, products.size())
                 .boxed()
                 .map(i -> StrategyResultsDTO.builder()
-                        .product(productRepository.getOne(products.get(i).getId()))
+                        .product(productJpaRepository.getOne(products.get(i).getId()))
                         .location(maxLocations.get(i))
                         .quantity(products.get(i).getQuantity())
                         .build()
@@ -71,7 +71,7 @@ public class MostAbundantStrategy implements CreateOrderStrategy {
 
     private Integer getQuantityOfLocation(Location location, Integer productId) {
 
-        List<Stock> stocks = stockRepository.getByLocation(location);
+        List<Stock> stocks = stockJpaRepository.getByLocation(location);
 
         Optional<Integer> optional = stocks.stream()
                 .filter(stock -> stock.getProduct().getId().equals(productId))

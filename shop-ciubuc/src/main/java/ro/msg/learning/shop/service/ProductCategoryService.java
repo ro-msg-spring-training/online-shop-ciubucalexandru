@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.dto.SortOption;
 import ro.msg.learning.shop.exception.CouldNotFindProductCategoryException;
 import ro.msg.learning.shop.model.ProductCategory;
-import ro.msg.learning.shop.repository.impl.ProductCategoryRepositoryImpl;
+import ro.msg.learning.shop.model.mongodb.ProductCategoryMongo;
+import ro.msg.learning.shop.repository.jpa.impl.ProductCategoryJpaRepositoryImpl;
+import ro.msg.learning.shop.repository.mongo.ProductCategoryMongoRepository;
 import ro.msg.learning.shop.util.RepositoryUtils;
 
 import java.util.List;
@@ -19,8 +21,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductCategoryService {
 
-    private final ProductCategoryRepositoryImpl productCategoryRepository;
+    private final ProductCategoryJpaRepositoryImpl productCategoryRepository;
     private final RepositoryUtils repositoryUtils;
+    private final ProductCategoryMongoRepository productCategoryMongoRepository;
 
     public List<ProductCategory> getAllProducts() {
         return productCategoryRepository.findAll();
@@ -88,5 +91,13 @@ public class ProductCategoryService {
         }
 
         return productCategoryRepository.findAll(example);
+    }
+
+    public List<ProductCategoryMongo> getAllMongoCategories() {
+        return productCategoryMongoRepository.findAll();
+    }
+
+    public ProductCategoryMongo createProductCategoryMongo(ProductCategoryMongo productCategoryMongo) {
+        return productCategoryMongoRepository.save(productCategoryMongo);
     }
 }

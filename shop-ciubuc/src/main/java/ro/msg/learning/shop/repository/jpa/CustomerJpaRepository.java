@@ -1,8 +1,8 @@
-package ro.msg.learning.shop.repository;
+package ro.msg.learning.shop.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ro.msg.learning.shop.model.Customer;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerJpaRepository extends JpaRepository<Customer, Integer> {
     Customer findByUsername(String username);
 }
