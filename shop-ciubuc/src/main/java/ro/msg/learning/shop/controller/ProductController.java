@@ -2,7 +2,9 @@ package ro.msg.learning.shop.controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import ro.msg.learning.shop.dto.PageOptionsDTO;
 import ro.msg.learning.shop.dto.ProductDTO;
+import ro.msg.learning.shop.dto.SortOptionsListDTO;
 import ro.msg.learning.shop.service.ProductService;
 
 import java.util.List;
@@ -48,5 +50,16 @@ public class ProductController {
     @PutMapping("/")
     public ProductDTO updateProduct(@RequestBody ProductDTO product) {
         return productService.updateProduct(product);
+    }
+
+    @PostMapping("/all/paged")
+    public List<ProductDTO> getProductsPaged(@RequestBody PageOptionsDTO pageOptionsDTO) {
+        return productService.getAllProductsPaged(pageOptionsDTO.getStart(), pageOptionsDTO.getSize(),
+                pageOptionsDTO.getSortOptions());
+    }
+
+    @PostMapping("/all/sorted")
+    public List<ProductDTO> getProductsSorted(@RequestBody SortOptionsListDTO sortOptionsListDTO) {
+        return productService.getAllProductsSorted(sortOptionsListDTO.getSortOptions());
     }
 }

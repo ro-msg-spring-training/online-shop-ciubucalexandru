@@ -50,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private void configureHttpBasic(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(PRODUCTS_PAGE).hasRole("ADMIN")
+                .antMatchers(PRODUCTS_PAGE).permitAll()
                 .antMatchers(ORDERS_PAGE).permitAll()
-                .antMatchers("/", H2_CONSOLE).authenticated()
+                .antMatchers("/", H2_CONSOLE).permitAll()
                 .antMatchers(LOGIN_PAGE).permitAll()
                 .and()
                 .httpBasic().and()
