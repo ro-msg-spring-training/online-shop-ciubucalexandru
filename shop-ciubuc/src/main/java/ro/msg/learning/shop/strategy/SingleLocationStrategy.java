@@ -9,7 +9,13 @@ import ro.msg.learning.shop.exception.CouldNotFindLocationException;
 import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.model.ids.OrderDetailId;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.jpa.*;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderJpaRepository;
+import ro.msg.learning.shop.repository.jpa.ProductJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderDetailJpaRepository;
+import ro.msg.learning.shop.repository.jpa.CustomerJpaRepository;
+import ro.msg.learning.shop.repository.jpa.AddressJpaRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;

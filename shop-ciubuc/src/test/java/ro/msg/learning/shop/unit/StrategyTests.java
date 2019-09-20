@@ -4,7 +4,12 @@ import org.junit.Before;
 import org.mockito.Mock;
 import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.model.ids.StockId;
-import ro.msg.learning.shop.repository.jpa.*;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderJpaRepository;
+import ro.msg.learning.shop.repository.jpa.ProductJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
+import ro.msg.learning.shop.repository.jpa.CustomerJpaRepository;
+import ro.msg.learning.shop.repository.jpa.AddressJpaRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -2,7 +2,13 @@ package ro.msg.learning.shop.integration;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import ro.msg.learning.shop.repository.jpa.*;
+import ro.msg.learning.shop.repository.jpa.LocationJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderJpaRepository;
+import ro.msg.learning.shop.repository.jpa.ProductJpaRepository;
+import ro.msg.learning.shop.repository.jpa.StockJpaRepository;
+import ro.msg.learning.shop.repository.jpa.OrderDetailJpaRepository;
+import ro.msg.learning.shop.repository.jpa.CustomerJpaRepository;
+import ro.msg.learning.shop.repository.jpa.AddressJpaRepository;
 import ro.msg.learning.shop.strategy.MostAbundantStrategy;
 import ro.msg.learning.shop.strategy.MultipleLocationsOrder;
 import ro.msg.learning.shop.strategy.SingleLocationStrategy;
