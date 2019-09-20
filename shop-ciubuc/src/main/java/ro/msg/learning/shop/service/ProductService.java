@@ -15,7 +15,6 @@ import ro.msg.learning.shop.repository.SupplierRepository;
 import ro.msg.learning.shop.repository.impl.ProductRepositoryImpl;
 import ro.msg.learning.shop.util.RepositoryUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,10 +29,7 @@ public class ProductService {
     private final RepositoryUtils repositoryUtils;
 
     public ProductDTO createProduct(ProductDTO productDTO) {
-
         Product product = generateProduct(productDTO);
-        Example<Product> productExample = Example.of(product, ExampleMatcher.matching());
-
         return ProductDTO.toDTO(productRepository.save(product));
     }
 
