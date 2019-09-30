@@ -52,8 +52,11 @@ INSERT INTO order_detail VALUES (1, 1, 20);
 INSERT INTO order_detail VALUES (2, 2, 5);
 INSERT INTO order_detail VALUES (3, 1, 1);
 
+INSERT INTO role VALUES (1, 'CUSTOMER');
+INSERT INTO role VALUES (2, 'ADMIN');
 
-
+INSERT INTO customer_roles VALUES (1, 1);
+INSERT INTO customer_roles VALUES (1, 2);
 
 
 

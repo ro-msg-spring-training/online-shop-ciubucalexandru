@@ -8,6 +8,7 @@ import ro.msg.learning.shop.model.base.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Builder
@@ -32,4 +33,12 @@ public class Customer implements BaseEntity, Serializable {
 
     @Column(name = "email_address")
     private String emailAddress;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "customer_roles",
+            joinColumns = {@JoinColumn(name = "customer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private List<Role> userRoles;
 }

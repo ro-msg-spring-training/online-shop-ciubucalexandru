@@ -84,6 +84,19 @@ CREATE TABLE order_detail(
     quantity INT NOT NULL
 );
 
+CREATE TABLE role(
+    id INT,
+    name VARCHAR(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE customer_roles(
+    customer_id INT,
+    role_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(id),
+    FOREIGN KEY (role_id) REFERENCES role(id),
+    PRIMARY KEY (customer_id, role_id)
+)
 
 
 
